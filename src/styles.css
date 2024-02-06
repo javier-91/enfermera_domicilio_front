@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+html {
+    background-image: url("fondo.jpg"); 
+    background-size: cover; 
+    /*background-repeat: repeat;*/
+     /* Color de fondo */
+    /* O, si deseas usar una imagen de fondo */
+    /* background-image: url('ruta/de/la/imagen.jpg'); */
+    /* background-size: cover; */
+  }
