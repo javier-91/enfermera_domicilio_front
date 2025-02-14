@@ -1,0 +1,436 @@
+button i {
+    border-radius: 10px;
+  }
+  
+  /* Canvia el color al passar el ratolí */
+  .nav-link:hover {
+    background-color: #ADD8E6;
+    color: white;
+    border-radius: 5px;
+    border: 2px solid #ADD8E6;
+  }
+  
+  /* Resaltar quan es fa clic en l'enllaç */
+  .nav-link:active,
+  .nav-item.active .nav-link {
+    background-color: #007bff;
+    border-radius: 5px;
+    border: 2px solid #007bff;
+  }
+  
+  /* Pàgina actual seleccionada */
+  .nav-item.active .nav-link {
+    background-color: #0056b3;
+    color: white;
+    border-radius: 5px;
+    border: 2px solid #0056b3;
+  }
+  
+  .btn {
+    transition: transform 0.2s;
+    /* Efecte de transició */
+  }
+  
+  .btn:active {
+    transform: scale(1.1);
+    /* Aumentem el tamany */
+  }
+  
+  body {
+    overflow-x: hidden;
+    /*Ocultem el scroll horitzontal*/
+  }
+  
+  /*Carrusel*/
+  .divCarrusel {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    /* Asegura que los divs hijos ocupen la misma altura */
+    justify-content: center;
+    height: 533px;
+    /* Assegura que ocupi l'alçada màxima */
+    width: 80%;
+    gap: 10px;
+    margin: 100px auto;
+    /* Para centrar el contenedor */
+  }
+  
+  .divCarruselTexto {
+    flex: 6;
+  }
+  
+  .divCarruselFoto {
+    flex: 4;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .divCarruselFoto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /*Contingut desprès del carrusel i abans del footer*/
+  main {
+    padding: 50px;
+    margin-top: 120px;
+    /* Afegir marge superior per no sobreposar el header i el menú */
+  }
+  
+  /* Articles */
+  .articles-ofertes,
+  .articles-videos {
+    display: flex;
+    justify-content: space-between;
+    /* Dues seccions */
+    gap: 10px;
+    /* Espai entre els articles */
+  }
+  
+  article {
+    flex: 5;
+  }
+  
+  .ofertes article,
+  .videos article {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f1f1f1;
+  }
+  
+  section video,
+  section button {
+    display: block;
+    margin: 0 auto;
+  }
+  
+  /*Secció Noticies*/
+  .noticies {
+    padding: 50px;
+  }
+  
+  /*Secció imatges*/
+  .imatges {
+    display: grid;
+    gap: 10px;
+    /* Espai entre els articles */
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .imatge {
+    border: 1px solid black;
+  }
+  
+  .imatge img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* PLAYLIST.html */
+  .contenidor-imatges {
+    display: flex;
+    /* Permet centrar el contingut */
+    justify-content: left;
+    /* Centra horitzontalment */
+    align-items: center;
+    /* Centra verticalment si el contenidor té alçada */
+    width: 100%;
+    /* Ocupa tota l'amplada disponible */
+  }
+  
+  /* Per a la imatge */
+  .imatges {
+    max-width: 100%;
+    /* Ajusta la imatge a l'amplada del contenidor */
+    height: auto;
+    /* Manté la proporció de la imatge */
+    display: block;
+    /* Elimina l'espai inferior no desitjat */
+  
+    border-radius: 10px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  h2 {
+    margin-top: 50px;
+    margin-bottom: 25px;
+  }
+  
+  p {
+    font-family: 'Roboto', sans-serif;
+    /* Usar Roboto per als paràgrafs */
+    font-size: 1em;
+    /* Mida de la font per als paràgrafs */
+    line-height: 1.6;
+    /* Alçada de línia per millor llegibilitat */
+  }
+  
+  /* TRANSICIONS.html */
+  /*TITOL*/
+  .transicions {
+    transition: transform 1s, color 1s ease;
+  }
+  
+  .transicions:hover {
+    transform: scale(1.5);
+    color: #ffc107;
+  }
+  
+  /*PROMOCIONS*/
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    
+  }
+  .containerPromocio{
+    background-color: #f1f1f1;
+  }
+  
+  .item {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    margin: auto;
+    margin-bottom: 10px;
+  }
+  
+  .item img {
+    width: 100%;
+    height: 100%;
+    transition: 0.5s linear;
+  }
+  
+  .item:hover img {
+    transform: scale(1.1);
+  }
+  
+  .item .caption {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px;
+    transition: 0.5s linear;
+  }
+  
+  .item:hover .caption {
+    top: -60px;
+  }
+  
+  .caption h4 {
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffc107;
+    margin: 0;
+  }
+  
+  .caption p {
+    font-size: 12px;
+    font-weight: normal;
+    color: #fff;
+    margin: 0;
+  }
+  
+  .titolPromocions {
+    text-align: center;
+    opacity: 0;
+    transition: opacity 3s ease;
+  }
+  
+  .titolPromocions.show {
+    opacity: 1;
+  }
+  
+  /* ICONOS */
+  /*.iconoAngular {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-image: url('images/angular.png');
+    background-size: contain; /* Cambiado a "contain" */
+    /*background-repeat: no-repeat; /* Evita repeticiones */
+    /*background-position: center; /* Centra la imagen */
+   /* padding-right: 20px;
+  }
+  .iconoReact {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-image: url('images/react.png');
+    background-size: contain; /* Cambiado a "contain" */
+   /* background-repeat: no-repeat; /* Evita repeticiones */
+   /* background-position: center; /* Centra la imagen */
+    /*padding-right: 20px;
+  }*/
+  
+  
+  /*ANIMACIONS.html*/
+  .animacions {
+    color: #ffc107;
+    position: relative;
+    animation-name: moureICanviarMida;
+    animation-duration: 1s;
+    animation-timing-function: ease-in;
+    animation-delay: 1s;
+    animation-iteration-count: 2;
+    animation-direction: alternate;
+    animation-fill-mode: backwards;
+  }
+  @keyframes moureICanviarMida {
+    from {
+        transform: translate(0%, 0%) scale(1);
+    }
+  
+    to {
+        transform: translate(10%, 10%) scale(1.5);
+    }
+  }
+  
+  .titolPromocionsAnimacio {
+    text-align: center;
+    animation: moviment-esquerra 3s linear;
+  }
+  @keyframes moviment-esquerra {
+    from {
+        transform: translate(-200px, 0);
+    }
+     to {
+        transform: translate(0px, 0);
+    }
+  }
+  
+  .imatgeAnimacio {
+    text-align: center;
+    animation: moviment-dret 3s linear;
+  }
+  @keyframes moviment-dret {
+    from {
+        transform: translate(200px, 0);
+    }
+     to {
+        transform: translate(0px, 0);
+    }
+  }
+  
+  /*GRAFICA.html*/
+  
+  svg {
+    border: solid 1px gray;
+  }
+  .contenidorPrincipal{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  /*GALERIA.html*/
+  #carousel {
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    position: relative;
+  
+  }
+  
+  #carousel img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 75%;
+    height: 100%;
+    object-fit: cover; 
+    transition: opacity 0.5s ease; 
+  }
+  
+  #carousel img.active {
+    opacity: 1;
+  
+  }
+  
+  .botons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+    
+  }
+  .botoImatge {
+    width: 20px; 
+    height: 20px; 
+    background-color: #ff5733; 
+    border-radius: 50%; 
+    border: none; 
+    margin: 0 5px; 
+    cursor: pointer; 
+    outline: none; 
+    transition: background-color 0.3s; 
+  }
+  .botoImatge:hover {
+    background-color: #b33f25; /* Color más oscuro al pasar el mouse */
+  }
+  
+  .botoImatge:active {
+    background-color: #702717; /* Color más oscuro al hacer clic */
+    transform:scale(1.5) ;
+  }
+  
+  /* Versió mòbil*/
+  @media only screen and (max-width: 800px) {
+  
+    .articles-videos,
+    .articles-ofertes {
+        display: flex;
+        flex-direction: column;
+        /* Disposa els articles en columna, un sota l'altre */
+        justify-content: center;
+        gap: 10px;
+        /* Espai entre els articles */
+    }
+  
+    .divCarrusel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        /* Assegura que ocupi l'alçada màxima */
+        width: 80%;
+        margin: 100px auto;
+        /* Para centrar el contenedor */
+    }
+  
+    /*Imatges */
+    .imatges {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+  
+    .imatge {
+        border: 1px solid black;
+    }
+  
+    .imatge img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+  
+    /*TRANSICIONS.html*/
+    .container {
+        display: grid;
+        grid-template-columns: 1fr;
+  
+    }
+  
+  }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
