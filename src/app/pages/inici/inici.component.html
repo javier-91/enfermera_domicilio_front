@@ -70,61 +70,18 @@
 </nav>
     <!-- Inici de la secció principal -->
     <main>
-        <div id="carousel">
-            <img src="/Llibres.jpg" />
-            <img src="/Llibres.jpg" />
-            <img src="/Llibres.jpg" />
-        </div>
+        <div #carousel class="carousel">
+            <img #imatge1 src="/Llibres.jpg" alt="Imagen 1" />
+            <img #imatge2 src="/Llibres.jpg" alt="Imagen 2" />
+            <img #imatge3 src="/Llibres.jpg" alt="Imagen 3" />
+          </div>
         <div class="botons">
-            <button class="botoImatge" id="imatge1"></button>
-            <button class="botoImatge" id="imatge2"></button>
-            <button class="botoImatge" id="imatge3"></button>
+            <button #boto1 class="botoImatge" ></button>
+            <button #boto2 class="botoImatge" ></button>
+            <button #boto3 class="botoImatge" ></button>
         </div>
     </main>
-    <script>
-        var carousel = document.getElementById('carousel');
-        var imatge1 = document.getElementById('imatge1');
-        var imatge2 = document.getElementById('imatge2');
-        var imatge3 = document.getElementById('imatge3');
-        var images = carousel.getElementsByTagName('img');
-        var currentImageIndex = 0;
 
-        imatge1.onclick = function (event) {
-            images[currentImageIndex].classList.remove('active');
-            images[0].classList.add('active');
-        }
-        imatge2.onclick = function (event) {
-            images[currentImageIndex].classList.remove('active');
-            images[1].classList.add('active');
-        }
-        imatge3.onclick = function (event) {
-            images[currentImageIndex].classList.remove('active');
-            images[2].classList.add('active');
-        }
-
-        function animateCarousel() {
-            var animation = anime({
-                targets: images[currentImageIndex],
-                translateX: '-100%',
-                duration: 3000,
-                easing: 'linear',
-                complete: function () {
-                    images[currentImageIndex].classList.remove('active');
-                    currentImageIndex++;
-                    if (currentImageIndex >= images.length) {
-                        currentImageIndex = 0;
-                    }
-                    images[currentImageIndex].classList.add('active');
-                    images[currentImageIndex].style.transform = 'translateX(100%)';
-                    animateCarousel();
-                }
-            });
-        }
-
-        images[currentImageIndex].classList.add('active');
-        animateCarousel();
-
-    </script>
 
 <!-- Inici de la secció principal -->
 <main>
@@ -169,9 +126,10 @@
             </article>
 
             <article>
+                <div class="box">
                 <video controls>
                     <source  type="video/mp4">
-                </video>
+                </video></div>
                 <h2>Eucerin Hyaluron-Filler + Elasticity noche, 50 ml</h2>
                 <p>Eucerin Hyaluron-Filler + Elasticity Nit rejoveneix la pell madura amb una alta
                     concentració

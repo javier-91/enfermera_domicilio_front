@@ -86,9 +86,9 @@
       <input matInput formControlName="telefon">
     </mat-form-field>
 
-    <mat-form-field appearance="fill" style="width: 80%;">
-      <mat-label>Missatge</mat-label>
-      <input matInput formControlName="missatge">
+    <mat-form-field appearance="fill" style="width: 80%; ">
+      <mat-label style="height:50%;">Missatge</mat-label>
+      <input matInput formControlName="missatge" >
     </mat-form-field>
 
     <button class="btn btn-danger mt-3" (click)="enviemValors()" [disabled]="form.invalid">Enviar</button>
