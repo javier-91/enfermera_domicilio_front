@@ -1,19 +1,17 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { HeaderComponent } from '../../components/header/header.component';
-import anime from 'animejs/lib/anime.es.js'; // Importación de anime.js para la animación de las imágenes
-import { isPlatformBrowser } from '@angular/common'; // Importación de isPlatformBrowser para detectar si el código se ejecuta en el navegador
-import { PLATFORM_ID } from '@angular/core'; // Importación de PLATFORM_ID para acceder al entorno de ejecución
-//import gsap from 'gsap';
-//import { ScrollTrigger } from 'gsap/ScrollTrigger';
-//gsap.registerPlugin(ScrollTrigger);
+import anime from 'animejs/lib/anime.es.js'; 
+import { isPlatformBrowser } from '@angular/common'; 
+import { PLATFORM_ID } from '@angular/core'; 
+
 
 @Component({
   selector: 'app-inici', // El selector que usará Angular para identificar este componente
-  standalone: true, // Hacemos este componente independiente (sin necesidad de un módulo adicional)
-  imports: [FooterComponent, HeaderComponent], // Importación de otros componentes (Footer y Header) que se usan en este componente
-  templateUrl: './inici.component.html', // El archivo de plantilla HTML para este componente
-  styleUrls: ['./inici.component.css'], // El archivo de estilos CSS para este componente
+  standalone: true, 
+  imports: [FooterComponent, HeaderComponent], 
+  templateUrl: './inici.component.html', 
+  styleUrls: ['./inici.component.css'], 
   changeDetection: ChangeDetectionStrategy.OnPush // Mejora el rendimiento
 })
 export class IniciComponent implements AfterViewInit {
@@ -22,12 +20,13 @@ export class IniciComponent implements AfterViewInit {
   @ViewChild('boto1', { static: true }) imatge1: ElementRef | undefined;
   @ViewChild('boto2', { static: true }) imatge2: ElementRef | undefined;
   @ViewChild('boto3', { static: true }) imatge3: ElementRef | undefined;
-  currentImageIndex = 0; // Índice de la imagen activa del carrusel
-  imatges: HTMLElement[] = []; // Array para almacenar las imágenes del carrusel
-  //isLoading=true;//Mientras carga las imagenes i carrusel muestro otra cosa.
+  currentImageIndex = 0; 
+  imatges: HTMLElement[] = []; 
 
   // Inyectamos PLATFORM_ID para detectar si estamos en el navegador o en el servidor
-  constructor(@Inject(PLATFORM_ID) private platformId: object) { }
+  constructor(@Inject(PLATFORM_ID) private platformId: object) { 
+
+  }
   
 
   // Este método se ejecuta después de que la vista ha sido inicializada
@@ -38,15 +37,13 @@ export class IniciComponent implements AfterViewInit {
         // Obtenemos todas las imágenes dentro del carrusel y las guardamos en imatges
         this.imatges = Array.from(this.carousel.nativeElement.querySelectorAll('img') || []);
       }
-      //this.isLoading=false;//Las imagenes estan cargadas.
+      this.imatges[0].classList.add('active');
       // Añadimos eventos de clic para los botones de imagen. Cuando se hace clic en una imagen, se establece como activa.
       this.imatge1?.nativeElement.addEventListener('click', () => this.setActiveImage(0));
       this.imatge2?.nativeElement.addEventListener('click', () => this.setActiveImage(1));
       this.imatge3?.nativeElement.addEventListener('click', () => this.setActiveImage(2));
-      this.animateCarousel();
-
-   // Animar un div para moverlo 100px a la derecha en 1 segundo
-//gsap.to('.box', { x: 100, duration: 1 });
+ 
+      this.animateCarousel
     }
   }
 
@@ -70,6 +67,7 @@ export class IniciComponent implements AfterViewInit {
       console.error("No hay imágenes en el carrusel.");
       return;
     }
+    
 
     // Animamos la imagen actual
     anime({
