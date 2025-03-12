@@ -22,30 +22,7 @@ button i {
     /* Alçada de línia per millor llegibilitat */
   }
   
-  /*MENU*/
-  /* Canvia el color al passar el ratolí */
-  .nav-link:hover {
-    background-color: #ADD8E6;
-    color: white;
-    border-radius: 5px;
-    border: 2px solid #ADD8E6;
-  }
 
-  /* Resaltar quan es fa clic en l'enllaç */
-  .nav-link:active,
-  .nav-item.active .nav-link {
-    background-color: #007bff;
-    border-radius: 5px;
-    border: 2px solid #007bff;
-  }
-  
-  /* Pàgina actual seleccionada */
-  .nav-item.active .nav-link {
-    background-color: #0056b3;
-    color: white;
-    border-radius: 5px;
-    border: 2px solid #0056b3;
-  }
   
   .btn {
     transition: transform 0.2s;
@@ -69,104 +46,10 @@ button i {
     /* Afegir marge superior per no sobreposar el header i el menú */
   }
   
-  /* Articles */
-  .ofertes{
-    margin-top:50px;
-  }
-  .articles-ofertes,
-  .articles-videos {
-    display: flex;
-    justify-content: space-between;
-    /* Dues seccions */
-    gap: 10px;
-    /* Espai entre els articles */
-  }
-  
-  .articles-ofertes article, .articles-videos article {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-}
-  .ofertes article,
-  .videos article {
-    margin-bottom: 20px;
-    padding: 15px;
-    background-color: #f1f1f1;
-  }
-  
-  section video,
-  section button {
-    display: block;
-    margin: 0 auto;
-  }
-    
-
-  
-  /*CARRUSEL*/
-  .carousel {
-    width: 100%;
-    height: 500px;
-    overflow: hidden;
-    position: relative;
-  
-  }
-  
-  .carousel img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    width: 75%;
-    height: 100%;
-    object-fit: cover; 
-    transition: opacity 0.5s ease; 
-  }
-  
-  .carousel img.active {
-    opacity: 1;
-  
-  }
-  
-  .botons{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-    margin-top: 20px;
-    
-  }
-  .botoImatge {
-    width: 20px; 
-    height: 20px; 
-    background-color: #ff5733; 
-    border-radius: 50%; 
-    border: none; 
-    margin: 0 5px; 
-    cursor: pointer; 
-    outline: none; 
-    transition: background-color 0.3s; 
-  }
-  .botoImatge:hover {
-    background-color: #b33f25; /* Color más oscuro al pasar el mouse */
-  }
-  
-  .botoImatge:active {
-    background-color: #702717; /* Color más oscuro al hacer clic */
-    transform:scale(1.5) ;
-  }
+ 
   
   /* Versió mòbil*/
   @media only screen and (max-width: 800px) {
-  
-    .articles-videos,
-    .articles-ofertes {
-        display: flex;
-        flex-direction: column;
-        /* Disposa els articles en columna, un sota l'altre */
-        justify-content: center;
-        gap: 10px;
-        /* Espai entre els articles */
-    }
+
   }
 

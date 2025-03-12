@@ -10,6 +10,11 @@ import { FooterComponent } from '../../components/footer/footer.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MenuComponent } from '../../components/menu/menu.component';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { NativeDateAdapter } from '@angular/material/core';
 
 
 
@@ -24,7 +29,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatButtonModule,
     MatFormFieldModule,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    MenuComponent,
+    MatDatepickerModule,
+    NgxMaterialTimepickerModule,
+    MatInputModule,
+    MatNativeDateModule
   ],
   templateUrl: './contacte.component.html',
   styleUrls: ['./contacte.component.css']
@@ -36,8 +46,10 @@ export class ContacteComponent {
     this.form = this.fb.group({
       nom: ['', Validators.required],
       correu: ['', [Validators.required, Validators.email]],
-      telefon: [''],
-      missatge: ['']
+      telefon: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      missatge: [''],
+      fecha : [null, Validators.required],
+      hora : [null, Validators.required]
     });
   }
 

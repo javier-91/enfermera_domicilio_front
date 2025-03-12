@@ -1,0 +1,50 @@
+ /* Articles */
+ .ofertes {
+     margin-top: 50px;
+ }
+
+ .articles-ofertes,
+ .articles-videos {
+     display: flex;
+     justify-content: space-between;
+     /* Dues seccions */
+     gap: 10px;
+     /* Espai entre els articles */
+ }
+
+ .articles-ofertes article,
+ .articles-videos article {
+     flex: 1;
+     min-width: 0;
+     display: flex;
+     flex-direction: column;
+ }
+
+ .ofertes article,
+ .videos article {
+     margin-bottom: 20px;
+     padding: 15px;
+     background-color: #f1f1f1;
+ }
+
+ section video,
+ section button {
+     display: block;
+     margin: 0 auto;
+ }
+
+
+
+ /* Versió mòbil*/
+ @media only screen and (max-width: 800px) {
+
+     .articles-videos,
+     .articles-ofertes {
+         display: flex;
+         flex-direction: column;
+         /* Disposa els articles en columna, un sota l'altre */
+         justify-content: center;
+         gap: 10px;
+         /* Espai entre els articles */
+     }
+ }

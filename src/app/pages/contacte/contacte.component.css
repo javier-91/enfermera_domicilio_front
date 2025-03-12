@@ -1,0 +1,13 @@
+  /* Versió mòbil*/
+  @media only screen and (max-width: 800px) {
+      .form {
+          padding-top: 50px;
+      }
+  }
+
+  /* Versió tablets*/
+  @media only screen and (max-width: 1280px) {
+      .form {
+          padding-top: 50px;
+      }
+  }
