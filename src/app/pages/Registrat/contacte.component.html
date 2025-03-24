@@ -29,17 +29,13 @@
         El teléfono solo puede contener numeros.
       </mat-error>
     </mat-form-field>
-    
+
     <mat-form-field appearance="fill" style="width: 80%;">
       <mat-label>Fecha</mat-label>
-      <input matInput [matDatepicker]="datePicker" [min]="hoy" formControlName="fecha">
+      <input matInput [matDatepicker]="datePicker" formControlName="fecha">
       <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
       <mat-datepicker #datePicker></mat-datepicker>
-      <mat-error *ngIf="form.get('fecha')?.hasError('required')">
-        La fecha es obligatoria.
-      </mat-error>
     </mat-form-field>
-    
 
     <mat-form-field appearance="fill" style="width: 80%;">
       <mat-label>Hora</mat-label>
@@ -52,7 +48,7 @@
       <textarea matInput formControlName="missatge" > </textarea>
     </mat-form-field>
     
-    <button class="btn btn-danger mt-3" style="background-color: #FF5733;" [disabled]="form.invalid">Enviar</button>
+    <button class="btn btn-danger mt-3" style="background-color: #FF5733;" (click)="enviemValors()" [disabled]="form.invalid">Enviar</button>
 
   </form>
 </div>

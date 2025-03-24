@@ -3,9 +3,6 @@
       .form {
           padding-top: 50px;
       }
-      mat-form-field {
-        margin-bottom:25px;
-      }
   }
 
   /* Versió tablets*/
@@ -14,4 +11,3 @@
           padding-top: 50px;
       }
   }
-
