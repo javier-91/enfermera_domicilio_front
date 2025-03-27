@@ -30,6 +30,23 @@
       </mat-error>
     </mat-form-field>
     
+    <mat-form-field appearance="fill" style="width: 80%;">
+      <mat-label>Fecha</mat-label>
+      <input matInput [matDatepicker]="datePicker" [min]="hoy" formControlName="fecha">
+      <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+      <mat-datepicker #datePicker></mat-datepicker>
+      <mat-error *ngIf="form.get('fecha')?.hasError('required')">
+        La fecha es obligatoria.
+      </mat-error>
+    </mat-form-field>
+    
+
+    <mat-form-field appearance="fill" style="width: 80%;">
+      <mat-label>Hora</mat-label>
+      <input matInput [ngxTimepicker]="timePicker" formControlName="hora">
+      <ngx-material-timepicker #timePicker></ngx-material-timepicker>
+    </mat-form-field>
+
     <mat-form-field appearance="fill" style="width: 80%; ">
       <mat-label>Mensaje</mat-label>
       <textarea matInput formControlName="missatge" > </textarea>

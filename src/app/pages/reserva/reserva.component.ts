@@ -17,7 +17,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ConexioBackendService } from '../../services/conexio-backend.service';
 
 @Component({
-  selector: 'app-contacte',
+  selector: 'app-reserva',
   standalone: true,
   imports: [
     CommonModule,
@@ -34,10 +34,10 @@ import { ConexioBackendService } from '../../services/conexio-backend.service';
     MatInputModule,
     MatNativeDateModule
   ],
-  templateUrl: './contacte.component.html',
-  styleUrls: ['./contacte.component.css']
+  templateUrl: './reserva.component.html',
+  styleUrls: ['./reserva.component.css']
 })
-export class ContacteComponent {
+export class ReservaComponent {
   private connexioBackend = inject(ConexioBackendService);
   form: FormGroup;
   mensajeExito: string = '';
@@ -51,7 +51,9 @@ export class ContacteComponent {
       nom: ['', Validators.required],
       correu: ['', [Validators.required, Validators.email]],
       telefon: ['', [Validators.required, Validators.pattern('^[0-9]{9}$')]],
-      missatge: ['']
+      missatge: [''],
+      fecha : [null, Validators.required],
+      hora : [null, Validators.required]
     });
 
   }
@@ -59,19 +61,23 @@ export class ContacteComponent {
   enviemValors() {
     console.log(this.form.value);
     const formData = this.form.value;
+    const fechaValida = formData.fecha.toISOString().split("T")[0];
+    const horaString = formData.hora;
 
     const dadesEnviar = {
       nom: formData.nom,
       correu: formData.correu,
       telefon: String(formData.telefon),
       missatge: formData.missatge,
+      data: fechaValida, 
+      hora: horaString 
     };
     setTimeout(() => {
       this.mensajeExito = "Cita enviada con éxito ✅";
       this.form.reset();
   }, 1500)
 
-    this.connexioBackend.enviarDadesContacte(dadesEnviar).subscribe({
+    this.connexioBackend.enviarDadesReserva(dadesEnviar).subscribe({
       next: (response) => {
         console.log("Cita enviada con éxito:", response);
         

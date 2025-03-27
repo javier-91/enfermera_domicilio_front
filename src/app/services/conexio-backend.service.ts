@@ -7,11 +7,14 @@ import { Observable } from 'rxjs';
 })
 export class ConexioBackendService {
 
-  private apiUrl = "http://localhost:8080/citas";
+  private apiUrl = "http://localhost:8080";
   private http = inject(HttpClient);
 
-  enviarDades(dades: any): Observable<any> {
-    return this.http.post(this.apiUrl, dades);
+  enviarDadesReserva(dades: any): Observable<any> {
+    return this.http.post(this.apiUrl+"/citas", dades);
+  }
+  enviarDadesContacte(dades: any): Observable<any> {
+    return this.http.post(this.apiUrl+"/contacto", dades);
   }
 
 }
