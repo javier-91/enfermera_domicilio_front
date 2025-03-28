@@ -15,9 +15,11 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ConexioBackendService } from '../../services/conexio-backend.service';
+import { MatIconModule } from '@angular/material/icon';
+
 
 @Component({
-  selector: 'app-contacte',
+  selector: 'app-registrat',
   standalone: true,
   imports: [
     CommonModule,
@@ -32,16 +34,18 @@ import { ConexioBackendService } from '../../services/conexio-backend.service';
     MatDatepickerModule,
     NgxMaterialTimepickerModule,
     MatInputModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatIconModule
   ],
-  templateUrl: './contacte.component.html',
-  styleUrls: ['./contacte.component.css']
+  templateUrl: './registrat.component.html',
+  styleUrls: ['./registrat.component.css']
 })
-export class ContacteComponent {
+export class RegistratComponent {
   private connexioBackend = inject(ConexioBackendService);
   form: FormGroup;
   mensajeExito: string = '';
-
+  hide = true;
+  password = '';
   hoy: any;
 
   constructor(private fb: FormBuilder) {
@@ -56,6 +60,11 @@ export class ContacteComponent {
 
   }
 
+
+  toggleVisibility() {
+    this.hide = !this.hide;
+  }
+
   enviemValors() {
     console.log(this.form.value);
     const formData = this.form.value;
@@ -67,17 +76,17 @@ export class ContacteComponent {
       missatge: formData.missatge,
     };
     setTimeout(() => {
-      this.mensajeExito = "Mensaje enviada con éxito ✅";
+      this.mensajeExito = "Registro exitoso, revise tu correo para activar tu cuenta. ✅";
       this.form.reset();
   }, 1500)
 
     this.connexioBackend.enviarDadesContacte(dadesEnviar).subscribe({
       next: (response) => {
-        console.log("Cita enviada con éxito:", response);
+        console.log("Formulario enviado con éxito:", response);
         
       },
       error: (error) => {
-        console.error("Error al enviar cita:", error);
+        console.error("Error al enviar formulario:", error);
       }
     });
 

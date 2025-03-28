@@ -5,6 +5,12 @@
       }
   }
 
+  .mensaje-exito {
+    color: green;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
   /* Versió tablets*/
   @media only screen and (max-width: 1280px) {
       .form {
