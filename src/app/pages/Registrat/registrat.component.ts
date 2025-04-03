@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../components/header/header.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { inject } from '@angular/core';
-import { DatePipe } from '@angular/common';
 //Angular Material
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -46,16 +45,13 @@ export class RegistratComponent {
   mensajeExito: string = '';
   hide = true;
   password = '';
-  hoy: any;
 
   constructor(private fb: FormBuilder) {
-    const datePite = new DatePipe('en-Us')
-    this.hoy = datePite.transform(new Date().setDate(new Date().getDate()+1), 'yyyy-MM-dd');
     this.form = this.fb.group({
       nom: ['', Validators.required],
+      password : ['', Validators.required],
       correu: ['', [Validators.required, Validators.email]],
-      telefon: ['', [Validators.required, Validators.pattern('^[0-9]{9}$')]],
-      missatge: ['', [Validators.required]]
+      telefon: ['', [Validators.required, Validators.pattern('^[0-9]{9}$')]]
     });
 
   }
@@ -71,9 +67,9 @@ export class RegistratComponent {
 
     const dadesEnviar = {
       nom: formData.nom,
+      password: formData.password,
       correu: formData.correu,
-      telefon: String(formData.telefon),
-      missatge: formData.missatge,
+      telefon: String(formData.telefon)
     };
     setTimeout(() => {
       this.mensajeExito = "Registro exitoso, revise tu correo para activar tu cuenta. ✅";

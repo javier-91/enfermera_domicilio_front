@@ -1,52 +1,23 @@
 <app-header></app-header>
 <app-menu></app-menu>
 <div class="form" style=" width: 100%; margin-top:10%; margin-bottom: 10%;  display: flex; align-items: center; justify-content: center;">
-  <form [formGroup]="form" (ngSubmit)="enviemValors()"
+  <form [formGroup]="form" 
     style="width: 50%; display: flex; flex-direction: column; align-items: center; gap:10px; border: solid 2px #ffc107; border-radius: 5px; padding-bottom:20px;">
+    
     <mat-form-field appearance="fill" style="width: 80%; margin-top:50px;">
-      <mat-label>Nombre</mat-label>
-      <input matInput formControlName="nom">
-      <mat-error *ngIf="form.get('nom')?.hasError('required')">El nombre es obligatorio.</mat-error>
-    </mat-form-field>
-
-
-
-    <mat-form-field appearance="fill" style="width: 80%;">
-      <mat-label>Correo electrónico</mat-label>
-      <input matInput formControlName="correu">
-      <mat-error *ngIf="form.get('correu')?.hasError('required')">
-        El correo es obligatorio.
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" style="width: 80%;">
-      <mat-label>Teléfono</mat-label>
-      <input matInput formControlName="telefon">
-      <mat-error *ngIf="form.get('telefon')?.hasError('required')">
-        El teléfono es obligatorio. 
-      </mat-error>
-      <mat-error *ngIf="form.get('telefon')?.hasError('pattern')">
-        El teléfono solo puede contener numeros.
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" style="width: 80%;">
-      <mat-label>Fecha</mat-label>
-      <input matInput [matDatepicker]="datePicker" formControlName="fecha">
-      <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
-      <mat-datepicker #datePicker></mat-datepicker>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" style="width: 80%;">
-      <mat-label>Hora</mat-label>
-      <input matInput [ngxTimepicker]="timePicker" formControlName="hora">
-      <ngx-material-timepicker #timePicker></ngx-material-timepicker>
+      <mat-label>Usuario</mat-label>
+      <input matInput formControlName="usuari">
+      <mat-error *ngIf="form.get('usuari')?.hasError('required')">El usuario es obligatorio.</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" style="width: 80%; ">
-      <mat-label>Mensaje</mat-label>
-      <textarea matInput formControlName="missatge" > </textarea>
+      <mat-label>Contraseña</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+      <button mat-icon-button matSuffix (click)="toggleVisibility()" type="button">
+        <mat-icon>{{ hide ? 'visibility' : 'visibility_off' }}</mat-icon>
+      </button>
     </mat-form-field>
+
     
     <button class="btn btn-danger mt-3" style="background-color: #FF5733;" (click)="enviemValors()" [disabled]="form.invalid">Enviar</button>
 
