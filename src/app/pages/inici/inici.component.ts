@@ -1,10 +1,9 @@
-import { Component, AfterViewInit, ViewChild, ElementRef, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { HeaderComponent } from '../../components/header/header.component';
 import { Router } from '@angular/router';
 import { CarroselComponent } from "../../components/carrosel/carrosel.component"; 
 import { MenuComponent } from '../../components/menu/menu.component';
-
 
 @Component({
   selector: 'app-inici', 
@@ -12,13 +11,19 @@ import { MenuComponent } from '../../components/menu/menu.component';
   imports: [FooterComponent, HeaderComponent, CarroselComponent, MenuComponent], 
   templateUrl: './inici.component.html', 
   styleUrls: ['./inici.component.css'], 
-  changeDetection: ChangeDetectionStrategy.OnPush // Mejora el rendimiento
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class IniciComponent  {
+export class IniciComponent implements AfterViewInit {
   constructor(private router: Router) {}
 
-    irA(ruta: string) {
-    this.router.navigate([ruta]);
+  async ngAfterViewInit() {
+    if (typeof window !== 'undefined') {
+      const AOS = await import('aos');
+      AOS.init();
+    }
   }
 
+  irA(ruta: string) {
+    this.router.navigate([ruta]);
+  }
 }
