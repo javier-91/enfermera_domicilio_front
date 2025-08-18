@@ -4,56 +4,63 @@
 <!-- Inici de la secció principal -->
 <app-carrosel></app-carrosel>
     <!-- Inici de la secció principal -->
-    <section class="ofertes">
-        <h1 class="pb-2 text-center">Ofertes</h1>
-        <div class="articles-ofertes">
+    <section class="seccio1">
+        <div class="serveis">
             <article>
-                <h3>Eucerin Anti-Pigment, 50ml</h3>
-                <p>Eucerin Anti-Pigment Crema de Nit redueix les taques i aporta un to homogeni a la pell, a més de
-                    prevenir-ne l'aparició</p>
+                <h1>Servicios de enfermería a domicilio</h1>
+                <p>Nos desplazamos a tu hogar para ofrecerte la mejor atención personalizada, incluyendo curas, administración de medicación, control de constantes y asesoramiento profesional.</p>
+                <ul>
+                    <li>Atención 24/7</li>
+                    <li>Profesionales titulados y con experiencia</li>
+                    <li>Servicio en Cochabamba y alrededores</li>
+                    <li>Seguimiento personalizado de cada paciente</li>
+                    <li>Confidencialidad y trato humano</li>
+                </ul>
                 <button type="button" class="btn btn-danger" style="background-color: #FF5733;"
-                    onclick="">
-                    Afegeix a la cistella
+                    (click)="irA('/reserva')">
+                    Pide cita ahora
                 </button>
             </article>
 
 
+
             <article>
-                <h3>Eucerin Hyaluron-Filler + Elasticity noche, 50 ml</h3>
-                <p>Eucerin Hyaluron-Filler + Elasticity Nit rejoveneix la pell madura amb una alta concentració
-                    d'actius
-                    com àcid hialurònic, oli d'argan, i card marià, que aporten a la pell.</p>
+                <h1>¿Necesitas más información?</h1>
+                <p>Si tienes dudas sobre nuestros servicios, precios o disponibilidad, no dudes en contactarnos. Estamos aquí para ayudarte y ofrecerte la mejor atención personalizada.</p>
+                <ul>
+                    <li>Resolvemos tus preguntas rápidamente</li>
+                    <li>Atención por WhatsApp y correo electrónico</li>
+                    <li>Sin compromiso</li>
+                    <li>Asesoramiento profesional gratuito</li>
+                </ul>
                 <button type="button" class="btn btn-danger" style="background-color: #FF5733;"
-                    onclick="">
-                    Afegeix a la cistella
+                    (click)="irA('/contacto')">
+                    Solicitar información
                 </button>
             </article>
         </div>
 
     </section>
-
-    <section class="videos pt-2">
-        <h1 class="text-center">Videos dels productes</h1>
-        <div class="articles-videos">
-            <article>
-                <video controls>
-                    <source type="video/mp4">
-                </video>
-                <h3>Eucerin Anti-Pigment, 50 ml</h3>
-                <p>Eucerin Anti-Pigment Crema de Nit redueix les taques i aporta un to homogeni a la pell, a més de
-                    prevenir-ne l'aparició.</p>
+    <section>
+        <div class="informacio">
+                <article>
+                <h1>¿Por qué elegirnos?</h1>
+                <p>
+                    Somos un equipo de enfermeros y enfermeras comprometidos con tu bienestar. Nos adaptamos a tus necesidades y horarios, garantizando un servicio seguro y de calidad en tu propio hogar.
+                </p>
+                <ul>
+                    <li>Más de 10 años de experiencia en atención domiciliaria</li>
+                    <li>Valoraciones y seguimiento continuo</li>
+                    <li>Colaboración con médicos y especialistas</li>
+                    <li>Precios accesibles y flexibles</li>
+                </ul>
             </article>
 
             <article>
-
-                    <video controls>
-                        <source type="video/mp4">
-                    </video>
-                
-                <h2>Eucerin Hyaluron-Filler + Elasticity noche, 50 ml</h2>
-                <p>Eucerin Hyaluron-Filler + Elasticity Nit rejoveneix la pell madura amb una alta
-                    concentració
-                    d'actius com àcid hialurònic, oli d'argan, i card marià, que aporten a la pell.</p>
+                <h1>¿Quienes somos?</h1>
+                <p>
+                    Somos un equipo de profesionales de la salud con amplia experiencia en enfermería domiciliaria. Nuestro objetivo es ofrecerte una atención integral y personalizada, adaptada a tus necesidades y circunstancias.
+                </p>
             </article>
         </div>
     </section>

@@ -1,9 +1,7 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { HeaderComponent } from '../../components/header/header.component';
-import anime from 'animejs/lib/anime.es.js'; 
-import { isPlatformBrowser } from '@angular/common'; 
-import { PLATFORM_ID } from '@angular/core';
+import { Router } from '@angular/router';
 import { CarroselComponent } from "../../components/carrosel/carrosel.component"; 
 import { MenuComponent } from '../../components/menu/menu.component';
 
@@ -17,7 +15,10 @@ import { MenuComponent } from '../../components/menu/menu.component';
   changeDetection: ChangeDetectionStrategy.OnPush // Mejora el rendimiento
 })
 export class IniciComponent  {
+  constructor(private router: Router) {}
 
-  
+    irA(ruta: string) {
+    this.router.navigate([ruta]);
+  }
 
 }

@@ -1,27 +1,28 @@
- /* Articles */
- .ofertes {
+ /* Secciones */
+ .seccio1 {
      margin-top: 50px;
  }
 
- .articles-ofertes,
- .articles-videos {
+ .serveis,
+ .informacio {
      display: flex;
      justify-content: space-between;
      /* Dues seccions */
-     gap: 10px;
+     gap: 50px;
      /* Espai entre els articles */
+     
  }
 
- .articles-ofertes article,
- .articles-videos article {
+ .serveis article,
+ .informacio article {
      flex: 1;
      min-width: 0;
      display: flex;
      flex-direction: column;
  }
 
- .ofertes article,
- .videos article {
+ .serveis article,
+ .informacio article {
      margin-bottom: 20px;
      padding: 15px;
      background-color: #f1f1f1;
@@ -38,8 +39,8 @@
  /* Versió mòbil*/
  @media only screen and (max-width: 800px) {
 
-     .articles-videos,
-     .articles-ofertes {
+     .informacio,
+     .serveis {
          display: flex;
          flex-direction: column;
          /* Disposa els articles en columna, un sota l'altre */
