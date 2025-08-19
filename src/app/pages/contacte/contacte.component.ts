@@ -7,6 +7,7 @@ import { FooterComponent } from '../../components/footer/footer.component';
 import { inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
 //Angular Material
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,6 +27,7 @@ import { ConexioBackendService } from '../../services/conexio-backend.service';
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatCheckboxModule,
     HeaderComponent,
     FooterComponent,
     MenuComponent,
@@ -41,17 +43,19 @@ export class ContacteComponent {
   private connexioBackend = inject(ConexioBackendService);
   form: FormGroup;
   mensajeExito: string = '';
+  tipoMensaje: 'exito' | 'error' | '' = '';
 
   hoy: any;
 
   constructor(private fb: FormBuilder) {
     const datePite = new DatePipe('en-Us')
-    this.hoy = datePite.transform(new Date().setDate(new Date().getDate()+1), 'yyyy-MM-dd');
+    this.hoy = datePite.transform(new Date().setDate(new Date().getDate() + 1), 'yyyy-MM-dd');
     this.form = this.fb.group({
       nom: ['', Validators.required],
       correu: ['', [Validators.required, Validators.email]],
       telefon: ['', [Validators.required, Validators.pattern('^[0-9]{9}$')]],
-      missatge: ['', [Validators.required]]
+      missatge: ['', [Validators.required]],
+      aceptaTerminos: [false, Validators.requiredTrue]
     });
 
   }
@@ -67,17 +71,21 @@ export class ContacteComponent {
       missatge: formData.missatge,
     };
     setTimeout(() => {
-      this.mensajeExito = "Mensaje enviada con éxito ✅";
       this.form.reset();
-  }, 1500)
+      this.mensajeExito = '';
+      this.tipoMensaje = '';
+    }, 1500)
 
     this.connexioBackend.enviarDadesContacte(dadesEnviar).subscribe({
       next: (response) => {
         console.log("Cita enviada con éxito:", response);
-        
+        this.mensajeExito = "Mensaje enviada con éxito ";
+        this.tipoMensaje = 'exito';
       },
       error: (error) => {
         console.error("Error al enviar cita:", error);
+        this.mensajeExito = "Error al enviar mensaje ";
+        this.tipoMensaje = 'error';
       }
     });
 

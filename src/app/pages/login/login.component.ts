@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../components/header/header.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { inject } from '@angular/core';
+import { Router } from '@angular/router';
 //Angular Material
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -45,7 +46,7 @@ export class LoginComponent {
   hide = true;
   password = '';
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.form = this.fb.group({
       usuari : ['', Validators.required],
       password : ['', Validators.required],
@@ -70,5 +71,8 @@ export class LoginComponent {
       }
     });
 
+  }
+    irA(ruta: string) {
+    this.router.navigate([ruta]);
   }
 }

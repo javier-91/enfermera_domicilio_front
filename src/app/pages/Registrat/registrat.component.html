@@ -1,46 +1,77 @@
 <app-header></app-header>
 <app-menu></app-menu>
-<div class="form" style=" width: 100%; margin-top:10%; margin-bottom: 10%;  display: flex; align-items: center; justify-content: center;">
+
+<div class="form-container"
+     style="width: 100%; margin: 10% 0; display: flex; justify-content: center;">
+  
   <form [formGroup]="form" (ngSubmit)="enviemValors()"
-    style="width: 50%; display: flex; flex-direction: column; align-items: center; gap:10px; border: solid 2px #ffc107; border-radius: 5px; padding-bottom:20px;">
-    <mat-form-field appearance="fill" style="width: 80%; margin-top:50px;">
+        style="width: 50%; display: flex; flex-direction: column; align-items: center; gap: 15px; 
+               border: 2px solid #ffc107; border-radius: 5px; padding: 30px 20px;">
+    
+    <!-- Nombre -->
+    <mat-form-field appearance="fill" style="width: 100%;">
       <mat-label>Nombre</mat-label>
       <input matInput formControlName="nom">
-      <mat-error *ngIf="form.get('nom')?.hasError('required')">El nombre es obligatorio.</mat-error>
+      <mat-error *ngIf="form.get('nom')?.hasError('required')">
+        El nombre es obligatorio.
+      </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill" style="width: 80%; ">
+    <!-- Contraseña -->
+    <mat-form-field appearance="fill" style="width: 100%;">
       <mat-label>Contraseña</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="password">
-      <button mat-icon-button matSuffix (click)="toggleVisibility()" type="button">
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+      <button mat-icon-button matSuffix type="button" (click)="toggleVisibility()">
         <mat-icon>{{ hide ? 'visibility' : 'visibility_off' }}</mat-icon>
       </button>
+      <mat-error *ngIf="form.get('password')?.hasError('required')">
+        La contraseña es obligatoria.
+      </mat-error>
     </mat-form-field>
-    
-    <mat-form-field appearance="fill" style="width: 80%;">
+
+    <!-- Correo electrónico -->
+    <mat-form-field appearance="fill" style="width: 100%;">
       <mat-label>Correo electrónico</mat-label>
       <input matInput formControlName="correu">
       <mat-error *ngIf="form.get('correu')?.hasError('required')">
         El correo es obligatorio.
       </mat-error>
+      <mat-error *ngIf="form.get('correu')?.hasError('email')">
+        Introduce un correo válido.
+      </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill" style="width: 80%;">
+    <!-- Teléfono -->
+    <mat-form-field appearance="fill" style="width: 100%;">
       <mat-label>Teléfono</mat-label>
       <input matInput formControlName="telefon">
       <mat-error *ngIf="form.get('telefon')?.hasError('required')">
-        El teléfono es obligatorio. 
+        El teléfono es obligatorio.
       </mat-error>
       <mat-error *ngIf="form.get('telefon')?.hasError('pattern')">
-        Introduce un número de teléfono correcto.
+        Introduce un número de teléfono válido.
       </mat-error>
     </mat-form-field>
 
+    <!-- Aceptar términos -->
+    <mat-checkbox formControlName="aceptaTerminos" style="width: 100%; margin-top: 10px;">
+      Acepto la <a href="/privacidad" target="_blank">Política de Privacidad</a> y los
+      <a href="/terminos-condiciones" target="_blank">Términos y Condiciones</a>.
+    </mat-checkbox>
+    <mat-error *ngIf="form.get('aceptaTerminos')?.hasError('required')">
+      Debes aceptar los términos y condiciones para continuar.
+    </mat-error>
 
-    
-    <button class="btn btn-danger mt-3" style="background-color: #FF5733;" (click)="enviemValors()" [disabled]="form.invalid">Enviar</button>
+    <!-- Botón enviar -->
+    <button mat-raised-button color="primary" type="submit" style="background-color: #FF5733;" 
+            [disabled]="form.invalid">
+      Enviar
+    </button>
+
+    <!-- Mensaje de éxito -->
     <p *ngIf="mensajeExito" class="mensaje-exito">{{ mensajeExito }}</p>
-
+    
   </form>
 </div>
+
 <app-footer></app-footer>

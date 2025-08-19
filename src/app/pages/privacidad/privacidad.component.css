@@ -1,0 +1,12 @@
+main {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px;
+}
+.privacidad-container {
+  max-width: 800px;
+  width: 100%;
+  padding: 40px 24px;
+}

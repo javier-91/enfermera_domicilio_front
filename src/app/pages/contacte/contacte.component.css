@@ -1,3 +1,13 @@
+  
+  .mensaje-exito {
+  color: green;
+  font-weight: bold;
+}
+
+.mensaje-error {
+  color: red;
+  font-weight: bold;
+}
   /* Versió mòbil*/
   @media only screen and (max-width: 800px) {
       .form {
@@ -6,11 +16,6 @@
       mat-form-field {
         margin-bottom:25px;
       }
-  }
-  .mensaje-exito {
-    color: green;
-    font-weight: bold;
-    margin-top: 10px;
   }
   /* Versió tablets*/
   @media only screen and (max-width: 1280px) {

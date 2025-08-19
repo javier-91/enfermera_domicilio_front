@@ -7,6 +7,7 @@ import { FooterComponent } from '../../components/footer/footer.component';
 import { inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
 //Angular Material
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -32,6 +33,7 @@ import { ConexioBackendService } from '../../services/conexio-backend.service';
     MatDatepickerModule,
     NgxMaterialTimepickerModule,
     MatInputModule,
+    MatCheckboxModule,
     MatNativeDateModule
   ],
   templateUrl: './reserva.component.html',
@@ -41,19 +43,21 @@ export class ReservaComponent {
   private connexioBackend = inject(ConexioBackendService);
   form: FormGroup;
   mensajeExito: string = '';
+  tipoMensaje: 'exito' | 'error' | '' = '';
 
   hoy: any;
 
   constructor(private fb: FormBuilder) {
     const datePite = new DatePipe('en-Us')
-    this.hoy = datePite.transform(new Date().setDate(new Date().getDate()+1), 'yyyy-MM-dd');
+    this.hoy = datePite.transform(new Date().setDate(new Date().getDate() + 1), 'yyyy-MM-dd');
     this.form = this.fb.group({
       nom: ['', Validators.required],
       correu: ['', [Validators.required, Validators.email]],
       telefon: ['', [Validators.required, Validators.pattern('^[0-9]{9}$')]],
       missatge: [''],
-      fecha : [null, Validators.required],
-      hora : [null, Validators.required]
+      fecha: [null, Validators.required],
+      hora: [null, Validators.required],
+      aceptaTerminos: [false, Validators.requiredTrue]
     });
 
   }
@@ -69,21 +73,26 @@ export class ReservaComponent {
       correu: formData.correu,
       telefon: String(formData.telefon),
       missatge: formData.missatge,
-      data: fechaValida, 
-      hora: horaString 
+      data: fechaValida,
+      hora: horaString
     };
     setTimeout(() => {
-      this.mensajeExito = "Cita enviada con éxito ✅";
+      this.mensajeExito = '';
+      this.tipoMensaje = '';
       this.form.reset();
-  }, 1500)
+    }, 1500)
 
     this.connexioBackend.enviarDadesReserva(dadesEnviar).subscribe({
       next: (response) => {
         console.log("Cita enviada con éxito:", response);
-        
+        this.mensajeExito = "Mensaje enviada con éxito ";
+        this.tipoMensaje = 'exito';
+
       },
       error: (error) => {
         console.error("Error al enviar cita:", error);
+        this.mensajeExito = "Error al enviar cita ";
+        this.tipoMensaje = 'error';
       }
     });
 

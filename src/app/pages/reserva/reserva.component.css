@@ -12,6 +12,10 @@
     font-weight: bold;
     margin-top: 10px;
   }
+  .mensaje-error {
+  color: red;
+  font-weight: bold;
+}
   /* Versió tablets*/
   @media only screen and (max-width: 1280px) {
       .form {

@@ -6,6 +6,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { inject } from '@angular/core';
 //Angular Material
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -34,6 +35,7 @@ import { MatIconModule } from '@angular/material/icon';
     NgxMaterialTimepickerModule,
     MatInputModule,
     MatNativeDateModule,
+    MatCheckboxModule,
     MatIconModule
   ],
   templateUrl: './registrat.component.html',
@@ -51,7 +53,8 @@ export class RegistratComponent {
       nom: ['', Validators.required],
       password : ['', Validators.required],
       correu: ['', [Validators.required, Validators.email]],
-      telefon: ['', [Validators.required, Validators.pattern('^[0-9]{9}$')]]
+      telefon: ['', [Validators.required, Validators.pattern('^[0-9]{9}$')]],
+      aceptaTerminos: [false, Validators.requiredTrue]
     });
 
   }

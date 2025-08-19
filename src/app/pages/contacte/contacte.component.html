@@ -1,6 +1,7 @@
 <app-header></app-header>
 <app-menu></app-menu>
-<div class="form" style=" width: 100%; margin-top:10%; margin-bottom: 10%;  display: flex; align-items: center; justify-content: center;">
+<div class="form"
+  style=" width: 100%; margin-top:10%; margin-bottom: 10%;  display: flex; align-items: center; justify-content: center;">
   <form [formGroup]="form" (ngSubmit)="enviemValors()"
     style="width: 50%; display: flex; flex-direction: column; align-items: center; gap:10px; border: solid 2px #ffc107; border-radius: 5px; padding-bottom:20px;">
     <mat-form-field appearance="fill" style="width: 80%; margin-top:50px;">
@@ -23,20 +24,31 @@
       <mat-label>Teléfono</mat-label>
       <input matInput formControlName="telefon">
       <mat-error *ngIf="form.get('telefon')?.hasError('required')">
-        El teléfono es obligatorio. 
+        El teléfono es obligatorio.
       </mat-error>
       <mat-error *ngIf="form.get('telefon')?.hasError('pattern')">
         Introduce un número de teléfono correcto.
       </mat-error>
     </mat-form-field>
-    
+
     <mat-form-field appearance="fill" style="width: 80%; ">
       <mat-label>Mensaje</mat-label>
-      <textarea matInput formControlName="missatge" > </textarea>
+      <textarea matInput formControlName="missatge"> </textarea>
     </mat-form-field>
-    
+
+    <mat-checkbox formControlName="aceptaTerminos" style="width: 80%; margin-top: 10px;">
+      Acepto la <a href="/privacidad" target="_blank">Política de Privacidad</a> y los
+      <a href="/terminos-condiciones" target="_blank">Términos y Condiciones</a>.
+    </mat-checkbox>
+    <mat-error *ngIf="form.get('aceptaTerminos')?.hasError('required')">
+      Debes aceptar los términos y condiciones para continuar.
+    </mat-error>
+
     <button class="btn btn-danger mt-3" style="background-color: #FF5733;" [disabled]="form.invalid">Enviar</button>
-    <p *ngIf="mensajeExito" class="mensaje-exito">{{ mensajeExito }}</p>
+    <p *ngIf="mensajeExito" [ngClass]="{
+      'mensaje-exito': tipoMensaje === 'exito',
+      'mensaje-error': tipoMensaje === 'error'
+    }">{{ mensajeExito }}</p>
   </form>
 </div>
 <app-footer></app-footer>
