@@ -1,0 +1,25 @@
+<app-header></app-header>
+<app-menu></app-menu>
+<main>
+    <!-- Inici de la secció principal -->
+    <app-carrosel></app-carrosel>
+    <!-- Inici de la secció principal -->
+    <section class="seccio1">
+        <div class="serveis">
+            <article data-aos="fade-right" data-aos-duration="1200" data-aos-delay="200">
+
+                <ng-container *ngIf="authService.userInfo$ | async as user; else loading">
+                    <h2 style="text-align: center;">
+                        {{ getSaludo() }} {{ user.username }}
+                    </h2>
+                </ng-container>
+
+                <ng-template #loading>
+                    <h2>Cargando...</h2>
+                </ng-template>
+                <!-- Enllaç a Bootstrap JS -->
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+                    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+                    crossorigin="anonymous"></script>
+
+                <app-footer></app-footer>

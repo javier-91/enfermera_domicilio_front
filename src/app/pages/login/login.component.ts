@@ -6,6 +6,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 //Angular Material
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,7 +15,7 @@ import { MenuComponent } from '../../components/menu/menu.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { ConexioBackendService } from '../../services/conexio-backend.service';
+import { ConexioBackendService } from '../../core/services/conexio-backend.service';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -35,44 +36,59 @@ import { MatIconModule } from '@angular/material/icon';
     MatInputModule,
     MatNativeDateModule,
     MatIconModule
+  
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent{
   private connexioBackend = inject(ConexioBackendService);
   form: FormGroup;
   mensajeExito: string = '';
   hide = true;
   password = '';
+  userInfo$: any;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
     this.form = this.fb.group({
-      usuari : ['', Validators.required],
-      password : ['', Validators.required],
+      usuari: ['', Validators.required],
+      password: ['', Validators.required],
     });
 
   }
+
 
   toggleVisibility() {
     this.hide = !this.hide;
   }
 
   enviemValors() {
-    const formData = this.form.value;
+    if (this.form.invalid) return;
 
-    this.connexioBackend.getToken(formData.usuari, formData.password).subscribe({
-      next: (response) => {
-        this.form.reset();
-        console.log("Formulario enviado con éxito:", response);
+    const { usuari, password } = this.form.value;
+
+    this.connexioBackend.getToken(usuari, password).subscribe({
+      next: (res: any) => {
+        if (res && res.status === "ok") {
+          console.log("Login correcto, tokens guardados en cookies");
+          this.router.navigate(['/perfil']);
+        } else {
+          console.log("Error en login");
+        }
+
       },
-      error: (error) => {
-        console.error("Error al enviar formulario:", error);
+      error: (err) => {
+        if (err.status === 401) {
+          this.mensajeExito = "Credenciales inválidas";
+        } else {
+          this.mensajeExito = "Error al conectar con el servidor";
+        }
       }
     });
-
   }
-    irA(ruta: string) {
+
+  irA(ruta: string) {
     this.router.navigate([ruta]);
   }
 }

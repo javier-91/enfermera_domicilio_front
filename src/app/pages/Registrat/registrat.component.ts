@@ -14,7 +14,7 @@ import { MenuComponent } from '../../components/menu/menu.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { ConexioBackendService } from '../../services/conexio-backend.service';
+import { ConexioBackendService } from '../../core/services/conexio-backend.service';
 import { MatIconModule } from '@angular/material/icon';
 
 

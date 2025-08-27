@@ -4,8 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../components/header/header.component';
 import { FooterComponent } from '../../components/footer/footer.component';
-import { inject } from '@angular/core';
+import { inject, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { AuthService } from '../../core/services/auth.service'; 
 //Angular Material
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
@@ -15,7 +16,7 @@ import { MenuComponent } from '../../components/menu/menu.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { ConexioBackendService } from '../../services/conexio-backend.service';
+import { ConexioBackendService } from '../../core/services/conexio-backend.service';
 
 @Component({
   selector: 'app-contacte',
@@ -39,13 +40,15 @@ import { ConexioBackendService } from '../../services/conexio-backend.service';
   templateUrl: './contacte.component.html',
   styleUrls: ['./contacte.component.css']
 })
-export class ContacteComponent {
+export class ContacteComponent implements OnInit {
   private connexioBackend = inject(ConexioBackendService);
   form: FormGroup;
   mensajeExito: string = '';
   tipoMensaje: 'exito' | 'error' | '' = '';
 
   hoy: any;
+  userInfo: any;
+  authService = inject(AuthService);
 
   constructor(private fb: FormBuilder) {
     const datePite = new DatePipe('en-Us')
@@ -59,6 +62,14 @@ export class ContacteComponent {
     });
 
   }
+    ngOnInit() {
+    // Nos suscribimos al observable del servicio
+    this.authService.userInfo$.subscribe(user => {
+      this.userInfo = user; // Guardamos la info del usuario
+    });
+  }
+
+
 
   enviemValors() {
     console.log(this.form.value);

@@ -1,31 +1,41 @@
 <nav class="navbar navbar-expand-md navbar-light fixed-top bg-dark mt-5">
-    <button type="button" class="navbar-toggler bg-light" data-bs-toggle="collapse" data-bs-target="#nav"
-        aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-between" id="nav">
-        <ul class="navbar-nav">
-            <li class="nav-item" [class.active]="esActivo('/inicio')">
+  <button type="button" class="navbar-toggler bg-light" data-bs-toggle="collapse" data-bs-target="#nav"
+    aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-between" id="nav">
+    <ul class="navbar-nav">
+      <li class="nav-item" [class.active]="esActivo('/inicio')">
 
-                <a class="nav-link text-light font-weight-bold text-uppercase px-3 " href="/"> <i
-                        class="fa-solid fa-house" style="padding-right: 10px;"></i>Inicio</a>
-            </li>
-            <li class="nav-item active" [class.active]="esActivo('/contacto')">
+        <a class="nav-link text-light font-weight-bold text-uppercase px-3 " href="/"> <i class="fa-solid fa-house"
+            style="padding-right: 10px;"></i>Inicio</a>
+      </li>
+      <li class="nav-item active" [class.active]="esActivo('/contacto')">
 
-                <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/contacto"><i
-                        class="fa-solid fa-address-book" style="padding-right: 10px;"></i>Contacto</a>
-            </li>
-            <li class="nav-item active" [class.active]="esActivo('/reserva')">
+        <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/contacto"><i
+            class="fa-solid fa-address-book" style="padding-right: 10px;"></i>Contacto</a>
+      </li>
+      <li class="nav-item active" [class.active]="esActivo('/reserva')">
 
-                <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/reserva"><i
-                        class="fa-solid fa-address-book" style="padding-right: 10px;"></i>Reserva</a>
-            </li>
-            <li class="nav-item active" [class.active]="esActivo('/login')">
+        <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/reserva"><i
+            class="fa-solid fa-address-book" style="padding-right: 10px;"></i>Reserva</a>
+      </li>
+      <!-- Solo si NO está logueado -->
+      <li *ngIf="!((authService.userInfo$ | async) ?? null)" class="nav-item active"
+        [class.active]="esActivo('/login')">
+        <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/login">
+          <i class="fa-solid fa-address-book" style="padding-right: 10px;"></i>Login
+        </a>
+      </li>
+      <!-- Solo si está logueado -->
+      <li *ngIf="((authService.userInfo$ | async) ?? null)" class="nav-item active"
+        [class.active]="esActivo('/perfil')">
+        <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/perfil">
+          <i class="fa-solid fa-user" style="padding-right: 10px;"></i>Perfil
+        </a>
+      </li>
 
-                <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/login"><i
-                        class="fa-solid fa-address-book" style="padding-right: 10px;"></i>Login</a>
-            </li>
-        </ul>
+    </ul>
 
-    </div>
+  </div>
 </nav>
