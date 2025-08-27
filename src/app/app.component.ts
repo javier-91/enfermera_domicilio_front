@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { CookieBannerComponent } from './components/cookie-banner/cookie-banner.component';
 import { AuthService } from './core/services/auth.service';
 
+
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, CookieBannerComponent],
@@ -30,4 +31,5 @@ export class AppComponent implements OnInit {
     });
 
   }
+
 }
