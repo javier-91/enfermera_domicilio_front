@@ -39,7 +39,7 @@ export class PerfilComponent {
 
   /**Cargamos todas las opciones del calendario */
   calendarOptions: CalendarOptions = {
-    initialView: 'dayGridMonth',
+    initialView: 'dayGridMonth',//VIstas, dayGridMonth, timeGridWeek, timeGridDay, listWeek
     plugins: [dayGridPlugin, interactionPlugin],
     dateClick: (arg) => this.handleDateClick(arg),
     events: [
@@ -49,6 +49,6 @@ export class PerfilComponent {
   };
 
   handleDateClick(arg: any) {
-    alert('date click! ' + arg.dateStr)
+    alert('date click! ' + arg.dateStr);
   }
 }
