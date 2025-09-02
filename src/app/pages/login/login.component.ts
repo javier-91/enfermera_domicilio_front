@@ -72,7 +72,7 @@ export class LoginComponent{
       next: (res: any) => {
         if (res && res.status === "ok") {
           console.log("Login correcto, tokens guardados en cookies");
-          this.router.navigate(['/perfil']);
+          this.router.navigate(['/citas']);
         } else {
           console.log("Error en login");
         }

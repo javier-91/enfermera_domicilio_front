@@ -5,7 +5,7 @@
     <div class="col-4 col-sm-4 col-md-8 ">
       @if (authService.userInfo$ | async; as user) {
         <!-- Usuario logueado -->
-        <a [routerLink]="['/perfil']">
+        <a [routerLink]="['/citas']">
           <img src="/logoBlanco.png" class="img-fluid logo" alt="Logo de VitKat" style="max-width: 50px;">
         </a>
       } @else {
@@ -20,7 +20,7 @@
     <div class="col-4 col-sm-4 col-md-2 text-end">
       @if (authService.userInfo$ | async; as user) {
         <!-- Usuario logueado -->
-        <a [routerLink]="['/perfil']">
+        <a [routerLink]="['/citas']">
           <i class="fa-solid fa-user"></i>
           {{ user.username }}
         </a>

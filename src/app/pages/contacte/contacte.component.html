@@ -37,8 +37,9 @@
     </mat-form-field>
 
     <mat-checkbox formControlName="aceptaTerminos" style="width: 80%; margin-top: 10px;">
-      Acepto la <a href="/privacidad" target="_blank">Política de Privacidad</a> y los
-      <a href="/terminos-condiciones" target="_blank">Términos y Condiciones</a>.
+      <div class="textoPrivacidad">Acepto la <a href="/privacidad" target="_blank">Política de Privacidad</a> y los
+        <a href="/terminos-condiciones" target="_blank">Términos y Condiciones</a>.
+      </div>
     </mat-checkbox>
     <mat-error *ngIf="form.get('aceptaTerminos')?.hasError('required')">
       Debes aceptar los términos y condiciones para continuar.

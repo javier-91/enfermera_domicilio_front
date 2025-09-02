@@ -6,16 +6,23 @@
         <div class="serveis">
             <article data-aos="fade-right" data-aos-duration="1200" data-aos-delay="200">
 
-                <ng-container *ngIf="authService.userInfo$ | async as user; else loading">
-                    <h2 style="text-align: center;">
-                        {{ getSaludo() }} {{ user.username }}
-                    </h2>
-                </ng-container>
+
 
                 <ng-template #loading>
                     <h2>Cargando...</h2>
                 </ng-template>
-                <div class="calendario">
+                <div class="container">
+                    <div class="title-row">
+                <ng-container *ngIf="authService.userInfo$ | async as user; else loading">
+                    <h1>
+                        {{ getSaludo() }} {{ user.username }}
+                    </h1>
+                </ng-container>
+                        <div class="actions">
+                            <button class="btn primary" (click)="irA('/citas/nueva')">Nueva cita</button>
+                        </div>
+                    </div>
+
                     <full-calendar [options]="calendarOptions"></full-calendar>
                 </div>
                 <!-- Enllaç a Bootstrap JS -->

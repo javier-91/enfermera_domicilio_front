@@ -4,8 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../components/header/header.component';
 import { FooterComponent } from '../../components/footer/footer.component';
-import { inject } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { inject, OnInit } from '@angular/core';
+import { DatePipe, NgFor } from '@angular/common';
 //Angular Material
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
@@ -16,7 +16,8 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ConexioBackendService } from '../../core/services/conexio-backend.service';
-
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 @Component({
   selector: 'app-reserva',
   standalone: true,
@@ -34,17 +35,29 @@ import { ConexioBackendService } from '../../core/services/conexio-backend.servi
     NgxMaterialTimepickerModule,
     MatInputModule,
     MatCheckboxModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    NgFor,
+    MatAutocompleteModule
   ],
   templateUrl: './reserva.component.html',
   styleUrls: ['./reserva.component.css']
 })
-export class ReservaComponent {
+export class ReservaComponent implements OnInit {
   private connexioBackend = inject(ConexioBackendService);
   form: FormGroup;
   mensajeExito: string = '';
   tipoMensaje: 'exito' | 'error' | '' = '';
+  resultadosDireccion: any[] = [];
 
+
+  ngOnInit() {
+    this.form.get('direccion')?.valueChanges.pipe(
+      debounceTime(400),          // espera 400ms tras la última tecla
+      distinctUntilChanged()      // solo si realmente cambió el valor
+    ).subscribe(value => {
+      this.buscarDireccion(value);   // le pasamos el valor filtrado
+    });
+  }
   hoy: any;
 
   constructor(private fb: FormBuilder) {
@@ -57,7 +70,8 @@ export class ReservaComponent {
       missatge: [''],
       fecha: [null, Validators.required],
       hora: [null, Validators.required],
-      aceptaTerminos: [false, Validators.requiredTrue]
+      direccion: ['', Validators.required],
+      aceptaTerminos: [false, Validators.requiredTrue],
     });
 
   }
@@ -74,7 +88,10 @@ export class ReservaComponent {
       telefon: String(formData.telefon),
       missatge: formData.missatge,
       data: fechaValida,
-      hora: horaString
+      direccio: formData.direccion,
+      enfermera: 'Katherine',
+      hora: horaString,
+      minutosServicio: 60
     };
     setTimeout(() => {
       this.mensajeExito = '';
@@ -96,5 +113,41 @@ export class ReservaComponent {
       }
     });
 
+  }
+  /**
+ * Realiza una búsqueda de direcciones utilizando el servicio de backend que llama
+ * al endpoint de Google Autocomplete.  
+ * Se ejecuta cada vez que el usuario escribe en el campo de dirección.
+ * 
+ * - Si la longitud del texto es mayor a 2 caracteres, llama al backend para obtener sugerencias.
+ * - Si hay un error en la petición, se imprime en la consola.
+ * - Actualiza el array `resultadosDireccion` con las sugerencias obtenidas.
+ */
+  buscarDireccion(input: string) {
+    if (input && input.length > 2) {
+      console.log("Petición a backend:", input);
+      this.connexioBackend.getAutocomplete(input).subscribe({
+        next: res => this.resultadosDireccion = res.predictions || [],
+        error: err => console.error('Error al obtener direcciones', err)
+      });
+    } else {
+      this.resultadosDireccion = [];
+    }
+  }
+
+
+
+  /**
+ * Selecciona una dirección de la lista de sugerencias.  
+ * 
+ * - Actualiza el campo 'direccion' del formulario con la descripción de la dirección seleccionada.
+ * - Limpia el array `resultadosDireccion` para ocultar las sugerencias.
+ *
+ * @param direccion Objeto que representa la sugerencia de dirección seleccionada, 
+ *                  normalmente contiene al menos la propiedad `description`.
+ */
+  seleccionarDireccion(valor: string) {
+    this.form.get('direccion')?.setValue(valor);
+    this.resultadosDireccion = [];
   }
 }

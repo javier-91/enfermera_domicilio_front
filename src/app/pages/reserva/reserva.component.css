@@ -1,25 +1,33 @@
   /* Versió mòbil*/
   @media only screen and (max-width: 800px) {
-      .form {
-          padding-top: 50px;
-      }
-      mat-form-field {
-        margin-bottom:25px;
-      }
+    .form {
+      padding-top: 50px;
+    }
+
+    mat-form-field {
+      margin-bottom: 25px;
+    }
   }
+
   .mensaje-exito {
     color: green;
     font-weight: bold;
     margin-top: 10px;
   }
+
   .mensaje-error {
-  color: red;
-  font-weight: bold;
-}
-  /* Versió tablets*/
-  @media only screen and (max-width: 1280px) {
-      .form {
-          padding-top: 50px;
-      }
+    color: red;
+    font-weight: bold;
   }
 
+  /* Versió tablets*/
+  @media only screen and (max-width: 1280px) {
+    .form {
+      padding-top: 50px;
+    }
+  }
+
+  .textoPrivacidad {
+    font-size: 16px;
+    color: rgb(10, 0, 0);
+  }

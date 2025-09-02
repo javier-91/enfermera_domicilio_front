@@ -23,8 +23,8 @@ export class LoginGuard implements CanActivate {
       //filter(loggedIn => loggedIn !== null), // espera hasta que loggedIn tenga valor
       map(user => {
         if (user) {
-          console.log('LoginGuard: usuario logueado, redirigiendo a /perfil');
-          this.router.navigate(['/perfil']);
+          console.log('LoginGuard: usuario logueado, redirigiendo a /citas');
+          this.router.navigate(['/citas']);
           return false; // bloquea acceso a /login
         }
         console.log('LoginGuard: usuario no logueado, permitiendo acceso a /login');

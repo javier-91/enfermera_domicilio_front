@@ -71,7 +71,7 @@ export class ConexioBackendService {
 
         if (res && res.message) {
           console.log("🔹 AuthService: backend confirma sesión activa:", res.message);
-          
+
         } else {
           console.warn("⚠️ AuthService: backend respondió sin mensaje, probablemente sesión expirada");
         }
@@ -83,6 +83,14 @@ export class ConexioBackendService {
     );
   }
 
+  /**
+   * Autocompletado de direcciones  
+   * @param input 
+   * @returns 
+   */
+  getAutocomplete(input: string) {
+    return this.http.get<any>(`http://localhost:8080/google/autocomplete?input=${input}`);
+  }
 
 
 }

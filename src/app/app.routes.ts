@@ -10,7 +10,7 @@ import { CookieBannerComponent } from './components/cookie-banner/cookie-banner.
 import { AuthGuard } from './core/guards/auth.guard';
 import { RoleGuard } from './core/guards/role.guard';
 import { LoginGuard } from './core/guards/login.guard';
-import { PerfilComponent } from './pages/user/perfil/perfil.component';
+import { CitasComponent } from './pages/user/citas/citas.component';
 
 export const routes: Routes = [
     { path: 'contacto', component: ContacteComponent},
@@ -21,7 +21,7 @@ export const routes: Routes = [
     { path: 'privacidad', component: PrivacidadComponent},
     { path: 'terminos-condiciones', component: TerminosCondicionesComponent},
     { path: 'cookies', component: CookieBannerComponent},
-    { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard],
+    { path: 'citas', component: CitasComponent, canActivate: [AuthGuard],
         //children: [
             //{ path: 'perfil', component: PerfilComponent },
             //{ path: 'reservas', component: ReservasComponent },
