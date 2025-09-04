@@ -1,92 +1,122 @@
 <div class="principal">
-    <!-- Botón cerrar -->
-    <div class="botonCerrar"><button mat-button (click)="cerrar()"><i class="fi fi-br-cross"></i></button></div>
-    <h2 mat-dialog-title>Detalles de la cita</h2>
+  <!-- Botón cerrar -->
+  <div class="botonCerrar"><button mat-button (click)="cerrar()"><i class="fi fi-br-cross"></i></button></div>
+  <h2 mat-dialog-title>
+  {{ data.modo === 'editar' ? 'Detalles de la cita' : 'Nueva cita' }}
+</h2>
 
-    <!-- Formulario reactivo -->
-    <form [formGroup]="form" (ngSubmit)="editar()" class="camposForm">
-        <div class="camposForm">
-            <div class="campo">
-                <p class="label">ID:</p>
-                <p class="respuesta">{{ data.cita.id }}</p>
-            </div>
-<div class="campo">
-  <p class="label">Paciente:</p>
-  <mat-form-field  >
-    <input matInput formControlName="paciente" placeholder="Paciente">
-    <mat-error *ngIf="form.get('paciente')?.hasError('required')">
-      El paciente es obligatorio
-    </mat-error>
-  </mat-form-field>
-</div>
+  <!-- Formulario reactivo -->
+  <form [formGroup]="form" (ngSubmit)="editar()" class="camposForm">
+    <div class="camposForm">
+      <div class="campo">
+        <p class="label">ID:</p>
+        <p class="respuesta">{{ data.cita.id }}</p>
+      </div>
+      <div class="campo">
+        <p class="label">Paciente:</p>
+        <mat-form-field>
+          <input matInput formControlName="paciente" placeholder="Paciente">
+          <mat-error *ngIf="form.get('paciente')?.hasError('required')">
+            El paciente es obligatorio
+          </mat-error>
+        </mat-form-field>
+      </div>
 
-            <div class="campo">
-                <p class="label">Enfermera:</p>
-                <mat-form-field  >
-                  <input matInput formControlName="enfermera" placeholder="Enfermera">
-                  <mat-error *ngIf="form.get('enfermera')?.hasError('required')">
-                      La enfermera es obligatoria
-                  </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="campo">
-                <p class="label">Inicio:</p>
-                <mat-form-field  >
-                  <input matInput [matDatepicker]="pickerStart" [min]="hoy"  formControlName="start">
-                  <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
-                  <mat-datepicker #pickerStart></mat-datepicker>
-                </mat-form-field>
+      <div class="campo">
+        <p class="label">Enfermera:</p>
+        <mat-form-field>
+          <input matInput formControlName="enfermera" placeholder="Enfermera">
+          <mat-error *ngIf="form.get('enfermera')?.hasError('required')">
+            La enfermera es obligatoria
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="campo">
+        <p class="label">Dia:</p>
+        <mat-form-field>
+          <input matInput [matDatepicker]="pickerStart" [min]="hoy" formControlName="start">
+          <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+          <mat-datepicker #pickerStart></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="campo">
+        <p class="label">Hora:</p>
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <!-- Selector de hora 1 a 12 -->
+          <mat-form-field appearance="fill">
+            <mat-label>Hora</mat-label>
+            <mat-select formControlName="horaValue">
+              <mat-option *ngFor="let h of horas" [value]="h">{{ h }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('horaValue')?.hasError('required')">
+              La hora es obligatoria
+            </mat-error>
+          </mat-form-field>
 
-            </div>
-            <div class="campo">
-                <p class="label">Fin:</p>
-                <mat-form-field  >
-                  <input matInput [matDatepicker]="pickerEnd" [min]="hoy" formControlName="end">
-                  <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
-                  <mat-datepicker #pickerEnd></mat-datepicker>
-                </mat-form-field>
-            </div>
-            <div class="campo">
-                <p class="label">Correo:</p>
-                <mat-form-field  >
-                  <input matInput formControlName="correo" placeholder="Correo">
-                  <mat-error *ngIf="form.get('correo')?.hasError('email')">Correo no válido</mat-error>
-                </mat-form-field>
-            </div>
-            <div class="campo">
-                <p class="label">Teléfono:</p>
-                <mat-form-field  >
-                  <input matInput formControlName="telefono" placeholder="Teléfono">
-                  <mat-error *ngIf="form.get('telefono')?.hasError('required')">El teléfono es obligatorio</mat-error>
-                </mat-form-field>
-            </div>
-            <div class="campo">
-                <p class="label">Dirección:</p>
-                <mat-form-field  >
-                  <input matInput formControlName="direccion" placeholder="Dirección">
-                  <mat-error *ngIf="form.get('direccion')?.hasError('required')">La dirección es obligatoria</mat-error>
-                </mat-form-field>
-            </div>
-            <div class="campo">
-                <p class="label">Mensaje:</p>
-                <mat-form-field>
-                  <textarea matInput formControlName="mensaje" rows="3"></textarea>
-                </mat-form-field>
-            </div>
-            <div class="campo">
-                <p class="label">Estado:</p>
-                <mat-form-field>
-                  <input matInput formControlName="estado" placeholder="Estado">
-                  <mat-error *ngIf="form.get('estado')?.hasError('required')">El estado es obligatorio</mat-error>
-                </mat-form-field>
-            </div>
-
+          <!-- Selector AM/PM -->
+          <mat-form-field appearance="fill">
+            <mat-label>AM/PM</mat-label>
+            <mat-select formControlName="horaPeriod">
+              <mat-option *ngFor="let p of periodos" [value]="p">{{ p }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('horaPeriod')?.hasError('required')">
+              La hora es obligatoria
+            </mat-error>
+          </mat-form-field>
         </div>
+      </div>
 
-        <div mat-dialog-actions class="divBotones">
+      <div class="campo">
+        <p class="label">Tiempo servicio(en minutos):</p>
+        <mat-form-field>
+          <input matInput formControlName="minutosServicio" placeholder="Minutos de servicio">
+          <mat-error *ngIf="form.get('minutosServicio')?.hasError('required')">
+            El tiempo de servicio es obligatorio
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="campo">
+        <p class="label">Correo:</p>
+        <mat-form-field>
+          <input matInput formControlName="correo" placeholder="Correo">
+          <mat-error *ngIf="form.get('correo')?.hasError('email')">Correo no válido</mat-error>
+        </mat-form-field>
+      </div>
 
-            <button mat-flat-button color="warn" type="button" (click)="eliminar()">Eliminar</button>
-            <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">Guardar</button>
-        </div>
-    </form>
+      <div class="campo">
+        <p class="label">Teléfono:</p>
+        <mat-form-field>
+          <input matInput formControlName="telefono" placeholder="Teléfono">
+          <mat-error *ngIf="form.get('telefono')?.hasError('required')">El teléfono es obligatorio</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="campo">
+        <p class="label">Dirección:</p>
+        <mat-form-field>
+          <input matInput formControlName="direccion" placeholder="Dirección">
+          <mat-error *ngIf="form.get('direccion')?.hasError('required')">La dirección es obligatoria</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="campo">
+        <p class="label">Mensaje:</p>
+        <mat-form-field>
+          <textarea matInput formControlName="mensaje" rows="3"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="campo">
+        <p class="label">Estado:</p>
+        <mat-form-field>
+          <input matInput formControlName="estado" placeholder="Estado">
+          <mat-error *ngIf="form.get('estado')?.hasError('required')">El estado es obligatorio</mat-error>
+        </mat-form-field>
+      </div>
+
+    </div>
+
+    <div mat-dialog-actions class="divBotones">
+
+      <button mat-flat-button color="warn" type="button" (click)="eliminar()">Eliminar</button>
+      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">Guardar</button>
+    </div>
+  </form>
 </div>

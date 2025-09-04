@@ -108,19 +108,56 @@ export class CitasComponent {
 
   /** Crear evento al seleccionar un rango */
   private onSelectRange(arg: DateSelectArg) {
-    const titulo = prompt('Título del evento:'); // puedes reemplazar por un modal
-    if (titulo && titulo.trim()) {
-      const nuevo: EventInput = {
-        id: String(Date.now()),
-        title: titulo.trim(),
-        start: arg.start,
-        end: arg.end
-      };
-      arg.view.calendar.addEvent(nuevo);
+    const cita: CitaEvent = {
+      id: String(Date.now()), // generas un id temporal
+      title: '',
+      start: arg.start.toISOString(),
+      end: arg.end.toISOString(),
+      paciente: '',
+      enfermera: '',
+      correo: '',
+      telefono: '',
+      direccion: '',
+      mensaje: '',
+      estado: 'pendiente'
+    };
 
-      // TODO: llamar a tu API (Spring Boot) para persistir
-      // this.api.post('/events', { title: titulo, start: arg.start, end: arg.end }).subscribe();
-    }
+    const dialogRef = this.dialog.open(CitaDetalleDialogComponent, {
+      width: '500px',
+      position: { top: '120px' },
+      data: {
+        cita,
+        modo: "crear"
+      },
+    });
+    // Acciones tras cerrar el diálogo
+    dialogRef.afterClosed().subscribe(result => {
+
+      console.log(result.cita.hora);
+      const startDate = new Date(result.cita.start); // asegura que es Date
+      startDate.setHours(12, 0, 0, 0); // medio día evita problemas de cambio horario
+      console.log(startDate);
+      // Combinar hora y AM/PM en un string
+      const horaString = `${result.cita.horaValue} ${result.cita.horaPeriod}`;
+      this.citaBackend = {
+        id: result.cita.id,
+        nom: result.cita.paciente,           // paciente -> nom
+        correu: result.cita.correo,          // correo -> correu
+        telefon: result.cita.telefono,
+        direccio: result.cita.direccion,
+        enfermera: result.cita.enfermera,
+        hora: horaString,
+        data: startDate.toISOString().split('T')[0],  // YYYY-MM-DD
+        missatge: result.cita.mensaje,
+        minutosServicio: result.cita.minutosServicio
+      };
+
+      this.citasService.updateCita(this.citaBackend).subscribe(() => {
+        const calendarioApi = arg.view.calendar;
+        calendarioApi.refetchEvents(); //Recarga todos los eventos.
+      });
+
+    });
     arg.view.calendar.unselect();
   }
 
@@ -141,7 +178,11 @@ export class CitasComponent {
     const dialogRef = this.dialog.open(CitaDetalleDialogComponent, {
       width: '500px',
       position: { top: '120px' },
-      data: { cita }
+      data: {
+        cita,
+        modo: "editar"
+      },
+
     });
 
     // Acciones tras cerrar el diálogo
@@ -153,10 +194,12 @@ export class CitasComponent {
         });
       }
       if (result?.action === 'edit') {
-        console.log(result.cita.start);
+        console.log(result.cita.hora);
         const startDate = new Date(result.cita.start); // asegura que es Date
+        startDate.setHours(12, 0, 0, 0); // medio día evita problemas de cambio horario
         console.log(startDate);
-        
+        // Combinar hora y AM/PM en un string
+        const horaString = `${result.cita.horaValue} ${result.cita.horaPeriod}`;
         this.citaBackend = {
           id: result.cita.id,
           nom: result.cita.paciente,           // paciente -> nom
@@ -164,13 +207,16 @@ export class CitasComponent {
           telefon: result.cita.telefono,
           direccio: result.cita.direccion,
           enfermera: result.cita.enfermera,
-          hora: startDate.toTimeString().split(' ')[0], // HH:mm:ss
+          hora: horaString,
           data: startDate.toISOString().split('T')[0],  // YYYY-MM-DD
           missatge: result.cita.mensaje,
           minutosServicio: result.cita.minutosServicio
         };
 
-        this.citasService.updateCita(this.citaBackend).subscribe();
+        this.citasService.updateCita(this.citaBackend).subscribe(() => {
+          const calendarioApi = arg.view.calendar;
+          calendarioApi.refetchEvents(); //Recarga todos los eventos.
+        });
       }
     });
   }
@@ -194,13 +240,28 @@ export class CitasComponent {
    * @returns El evento de calendario correspondiente
    */
   private mapCitaToEvent(cita: any): CitaEvent {
-    const fecha = new Date(cita.data);
-    const [hora, modifier] = cita.hora.split(' ');
-    let [hours, minutes] = hora.split(':').map(Number);
-    if (modifier === 'PM' && hours < 12) hours += 12;
-    if (modifier === 'AM' && hours === 12) hours = 0;
-    fecha.setHours(hours, minutes);
-    const end = new Date(fecha.getTime() + 60 * 60 * 1000); // duración en minutos
+    let fecha: Date;
+
+    // Caso 1: la hora ya viene en formato ISO que FullCalendar entiende directamente
+    if (!isNaN(Date.parse(cita.hora))) {
+      fecha = new Date(cita.hora);
+    } else {
+      // Caso 2: hora en formato 12h (AM/PM)
+      const [hora, modifier] = cita.hora.split(' ');
+      let [hours, minutes] = hora.split(':').map(Number);
+
+      if (modifier === 'PM' && hours < 12) hours += 12;
+      if (modifier === 'AM' && hours === 12) hours = 0;
+
+      // Creamos la fecha combinando el día con la hora
+      fecha = new Date(cita.data);
+      fecha.setHours(hours, minutes, 0, 0);
+    }
+
+    // Calculamos la hora de fin sumando la duración (en minutos)
+    const duration = cita.minutosServicio || 60; // fallback a 60 min
+    const end = new Date(fecha.getTime() + duration * 60000);
+
     return {
       id: String(cita.id),
       title: `${cita.nom}${cita.enfermera ? ' - ' + cita.enfermera : ''}`,
@@ -215,8 +276,6 @@ export class CitasComponent {
       estado: 'confirmada'
     };
   }
-
-
 }
 
 

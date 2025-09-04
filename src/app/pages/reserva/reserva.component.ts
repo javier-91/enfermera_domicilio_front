@@ -79,6 +79,7 @@ export class ReservaComponent implements OnInit {
   enviemValors() {
     console.log(this.form.value);
     const formData = this.form.value;
+    formData.fecha.setHours(12, 0, 0, 0); // medio día evita problemas de cambio horario
     const fechaValida = formData.fecha.toISOString().split("T")[0];
     const horaString = formData.hora;
 
