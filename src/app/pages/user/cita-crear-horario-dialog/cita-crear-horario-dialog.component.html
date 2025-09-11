@@ -2,16 +2,12 @@
   <!-- Botón cerrar -->
   <div class="botonCerrar"><button mat-button (click)="cerrar()"><i class="fi fi-br-cross"></i></button></div>
   <h2 mat-dialog-title>
-  Detalle de la cita, {{ data.cita.paciente }}
+  Crear cita
 </h2>
 
   <!-- Formulario reactivo -->
-  <form [formGroup]="form" (ngSubmit)="editar()" class="camposForm">
+  <form [formGroup]="form" (ngSubmit)="crear()" class="camposForm">
     <div class="camposForm">
-      <div class="campo">
-        <p class="label">ID:</p>
-        <p class="respuesta">{{ data.cita.id }}</p>
-      </div>
       <div class="campo">
         <p class="label">Paciente:</p>
         <mat-form-field>
@@ -31,50 +27,7 @@
           </mat-error>
         </mat-form-field>
       </div>
-      <div class="campo">
-        <p class="label">Dia:</p>
-        <mat-form-field>
-          <input matInput [matDatepicker]="pickerStart" [min]="hoy" formControlName="start">
-          <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
-          <mat-datepicker #pickerStart></mat-datepicker>
-        </mat-form-field>
-      </div>
-      <div class="campo">
-        <p class="label">Hora:</p>
-        <div style="display: flex; gap: 8px; align-items: center;">
-          <!-- Selector de hora 1 a 12 -->
-          <mat-form-field appearance="fill">
-            <mat-label>Hora</mat-label>
-            <mat-select formControlName="horaValue">
-              <mat-option *ngFor="let h of horas" [value]="h">{{ h }}</mat-option>
-            </mat-select>
-            <mat-error *ngIf="form.get('horaValue')?.hasError('required')">
-              La hora es obligatoria
-            </mat-error>
-          </mat-form-field>
 
-          <!-- Selector AM/PM -->
-          <mat-form-field appearance="fill">
-            <mat-label>AM/PM</mat-label>
-            <mat-select formControlName="horaPeriod">
-              <mat-option *ngFor="let p of periodos" [value]="p">{{ p }}</mat-option>
-            </mat-select>
-            <mat-error *ngIf="form.get('horaPeriod')?.hasError('required')">
-              La hora es obligatoria
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-
-      <div class="campo">
-        <p class="label">Tiempo servicio(en minutos):</p>
-        <mat-form-field>
-          <input matInput formControlName="minutosServicio" placeholder="Minutos de servicio">
-          <mat-error *ngIf="form.get('minutosServicio')?.hasError('required')">
-            El tiempo de servicio es obligatorio
-          </mat-error>
-        </mat-form-field>
-      </div>
       <div class="campo">
         <p class="label">Correo:</p>
         <mat-form-field>
@@ -115,7 +68,7 @@
 
     <div mat-dialog-actions class="divBotones">
 
-      <button mat-flat-button color="warn" type="button" (click)="eliminar()">Eliminar</button>
+      
       <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">Guardar</button>
     </div>
   </form>

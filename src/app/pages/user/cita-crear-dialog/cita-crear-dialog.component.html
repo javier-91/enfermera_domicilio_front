@@ -2,16 +2,12 @@
   <!-- Botón cerrar -->
   <div class="botonCerrar"><button mat-button (click)="cerrar()"><i class="fi fi-br-cross"></i></button></div>
   <h2 mat-dialog-title>
-  Detalle de la cita, {{ data.cita.paciente }}
+  Crear cita
 </h2>
 
   <!-- Formulario reactivo -->
   <form [formGroup]="form" (ngSubmit)="editar()" class="camposForm">
     <div class="camposForm">
-      <div class="campo">
-        <p class="label">ID:</p>
-        <p class="respuesta">{{ data.cita.id }}</p>
-      </div>
       <div class="campo">
         <p class="label">Paciente:</p>
         <mat-form-field>
@@ -115,7 +111,6 @@
 
     <div mat-dialog-actions class="divBotones">
 
-      <button mat-flat-button color="warn" type="button" (click)="eliminar()">Eliminar</button>
       <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">Guardar</button>
     </div>
   </form>

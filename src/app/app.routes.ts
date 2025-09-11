@@ -16,7 +16,7 @@ export const routes: Routes = [
     { path: 'contacto', component: ContacteComponent},
     { path: 'inicio', component: IniciComponent},
     { path: 'reserva', component: ReservaComponent},
-    { path: 'registrate', component: RegistratComponent},
+    { path: 'registrate', component: RegistratComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
     { path: 'privacidad', component: PrivacidadComponent},
     { path: 'terminos-condiciones', component: TerminosCondicionesComponent},

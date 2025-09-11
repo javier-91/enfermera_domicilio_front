@@ -1,0 +1,83 @@
+.principal {
+  overflow-y: auto;
+  /* activa scroll vertical */
+  max-height: 80vh;
+  /* máximo 80% de la altura de la ventana */
+  padding-right: 8px;
+  /* deja un poco de espacio al lado del scroll */
+}
+
+.botonCerrar {
+  text-align: right;
+}
+
+.divBotones {
+  display: flex;
+  justify-content: left;
+  gap: 10px;
+  padding: 1rem;
+}
+
+.camposForm {
+  padding: 1rem;
+  border-radius: 8px;
+  /* bordes redondeados */
+  margin: 10px;
+  /* margen alrededor del contenedor */
+
+}
+
+
+.campo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* separa campo y respuesta */
+  margin-bottom: 8px;
+  align-items: center;
+  /* centra verticalmente los elementos */
+  justify-content: center;
+  /* centra horizontalmente los elementos */
+}
+
+.label {
+  flex: 5;
+  margin-left: 10px;
+  font-size: 16px;
+  /* tamaño de letra */
+  font-weight: 450;
+  /* más “fuerte” */
+  color: #fcfcfc;
+  margin-bottom: 8px;
+  /* separación entre párrafos */
+}
+
+.respuesta {
+  flex: 5;
+  font-weight: 300;
+  /* más “fuerte” */
+  color: #b0b0b0;
+  /* color oscuro */
+  margin-bottom: 8px;
+  /* separación entre párrafos */
+}
+
+/* Error debajo del input */
+.mat-error {
+  text-align: right;
+  width: 100%;
+  font-size: 12px;
+  color: #ff4d4f;
+  /* color rojo típico de error */
+  margin-top: 2px;
+}
+
+h2[mat-dialog-title] {
+  margin-top: 0;
+  margin-bottom: 8px;
+  /* opcional, para separar un poco del primer campo */
+  font-weight: 450;
+  color: #fcfcfc;
+  text-align: center;
+}
+

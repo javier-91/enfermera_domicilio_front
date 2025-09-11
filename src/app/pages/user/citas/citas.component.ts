@@ -5,7 +5,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { MenuComponent } from '../../../components/menu/menu.component';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { AsyncPipe, NgIf } from '@angular/common';
-import { CalendarOptions, EventInput, DateSelectArg, EventClickArg, EventDropArg } from '@fullcalendar/core';
+import { CalendarOptions, DateSelectArg, EventClickArg, EventDropArg } from '@fullcalendar/core';
 import esLocale from '@fullcalendar/core/locales/es';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -15,10 +15,11 @@ import { CitaEvent } from '../../../core/models/cita-event.model';
 import { CitasService } from '../../../core/services/citas.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CitaDetalleDialogComponent } from '../cita-detalle-dialog/cita-detalle-dialog.component';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { CitaCrearHorarioDialogComponent } from '../cita-crear-horario-dialog/cita-crear-horario-dialog.component';
+import { CitaCrearDialogComponent } from '../cita-crear-dialog/cita-crear-dialog.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { Cita } from '../../../core/models/cita.models';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
 @Component({
   selector: 'app-citas',
   standalone: true,
@@ -46,11 +47,6 @@ export class CitasComponent {
     if (hora < 20) return 'Buenas tardes';
     return 'Buenas noches';
   }
-
-  irA(ruta: string) {
-    this.router.navigate([ruta]);
-  }
-
 
   /** Opciones estilo Google Calendar */
   calendarOptions: CalendarOptions = {
@@ -106,6 +102,44 @@ export class CitasComponent {
     }
   };
 
+  abrirNuevaCita() {
+    //Abrimos diálogo
+    const dialogRef = this.dialog.open(CitaCrearDialogComponent, {
+      width: '500px',
+      position: { top: '120px' },
+      data: {
+        modo: "crear"
+      },
+
+    });
+
+    // Acciones tras cerrar el diálogo
+    dialogRef.afterClosed().subscribe(result => {
+        console.log(result.cita.hora);
+        const startDate = new Date(result.cita.start); // asegura que es Date
+        startDate.setHours(12, 0, 0, 0); // medio día evita problemas de cambio horario
+        console.log(startDate);
+        // Combinar hora y AM/PM en un string
+        const horaString = `${result.cita.horaValue} ${result.cita.horaPeriod}`;
+        this.citaBackend = {
+          nom: result.cita.paciente,           // paciente -> nom
+          correu: result.cita.correo,          // correo -> correu
+          telefon: result.cita.telefono,
+          direccio: result.cita.direccion,
+          enfermera: result.cita.enfermera,
+          hora: horaString,
+          data: startDate.toISOString().split('T')[0],  // YYYY-MM-DD
+          missatge: result.cita.mensaje,
+          minutosServicio: result.cita.minutosServicio
+        };
+
+        this.citasService.addCita(this.citaBackend).subscribe(() => {
+
+        });
+      
+    });
+  }
+
   /** Crear evento al seleccionar un rango */
   private onSelectRange(arg: DateSelectArg) {
     const cita: CitaEvent = {
@@ -122,7 +156,7 @@ export class CitasComponent {
       estado: 'pendiente'
     };
 
-    const dialogRef = this.dialog.open(CitaDetalleDialogComponent, {
+    const dialogRef = this.dialog.open(CitaCrearHorarioDialogComponent, {
       width: '500px',
       position: { top: '120px' },
       data: {
@@ -132,27 +166,28 @@ export class CitasComponent {
     });
     // Acciones tras cerrar el diálogo
     dialogRef.afterClosed().subscribe(result => {
-
-      console.log(result.cita.hora);
+      //TIEMPO SERVICIO
+      const start = arg.start; // Date de inicio
+      const end = arg.end;     // Date de fin
+      const diffMs = end.getTime() - start.getTime();// Diferencia en milisegundos
+      const minutosSeleccionados = diffMs / (1000 * 60);// Convertir a minutos
+      //DATE
       const startDate = new Date(result.cita.start); // asegura que es Date
       startDate.setHours(12, 0, 0, 0); // medio día evita problemas de cambio horario
-      console.log(startDate);
-      // Combinar hora y AM/PM en un string
-      const horaString = `${result.cita.horaValue} ${result.cita.horaPeriod}`;
+
       this.citaBackend = {
-        id: result.cita.id,
         nom: result.cita.paciente,           // paciente -> nom
         correu: result.cita.correo,          // correo -> correu
         telefon: result.cita.telefono,
         direccio: result.cita.direccion,
         enfermera: result.cita.enfermera,
-        hora: horaString,
-        data: startDate.toISOString().split('T')[0],  // YYYY-MM-DD
+        hora: arg.startStr,
+        data: arg.start.toISOString().split('T')[0],  // YYYY-MM-DD
         missatge: result.cita.mensaje,
-        minutosServicio: result.cita.minutosServicio
+        minutosServicio: minutosSeleccionados
       };
 
-      this.citasService.updateCita(this.citaBackend).subscribe(() => {
+      this.citasService.addCita(this.citaBackend).subscribe(() => {
         const calendarioApi = arg.view.calendar;
         calendarioApi.refetchEvents(); //Recarga todos los eventos.
       });
